@@ -1,9 +1,15 @@
+import React,{Component} from 'react';
 import './Display.css';
-function Display(){
+class Display extends Component{
+    render(){
+        let { result } = this.props;
     return(
-        <form>
-            <input type="text" className="display" />
-        </form>
+        
+           <div className='display' >
+           <p>{result}</p> 
+           </div>
+        
     );
+    }
 }
 export default Display;

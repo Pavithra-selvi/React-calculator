@@ -1,7 +1,8 @@
 .main{
     /* height:400px; */
     width:300px;
-    border:5px solid yellow;
+    border:2px solid black; 
+    background-color: #464646;
 }
 
 .center{
