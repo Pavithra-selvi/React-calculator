@@ -1,85 +1,72 @@
-import React, { useState ,Component} from "react";
+import React, { useState } from "react";
 import './App.css';
 import Display from "./Display";
 import Btn from "./ButtonComponent";
 
-class App extends Component{
-    
-    state = {
-        result: ""
-      }
+function App() {
 
-  
-      onClick = button => {
-        if(button === "=") {
-          this.calculate();
+    const [result, setResult] = useState('');
+
+    const onClick = (button) => {
+        if (button === "=") {
+            calculate();
         }
-    
-        else if(button === "AC") {
-          this.reset();
+
+        else if (button === "AC") {
+            reset();
         }
-    
-        else if(button === "⌫") {
-          this.backspace();
+
+        else if (button === "⌫") {
+            backspace();
         }
-    
+
         else {
-          this.setState({
-            result: this.state.result + button
-          })
+            setResult(result + button)
         }
-      };
-    
-      calculate = () => {
-        var checkResult = ''
-        if(this.state.result.includes('--')) {
-          checkResult = this.state.result.replace('--', '-')
+    };
+
+    const calculate = () => {
+        let checkResult = ''
+        if (result.includes('--')) {
+            checkResult = result.replace('--', '-')
         }
-        else if(this.state.result.includes('++')) {
-          checkResult = this.state.result.replace('++', '+')
+        else if (result.includes('++')) {
+            checkResult = result.replace('++', '+')
         }
-        else if(this.state.result.includes('**')) {
-            checkResult = this.state.result.replace('**', '*')
-          }
-          else if(this.state.result.includes('//')) {
-            checkResult = this.state.result.replace('//', '/')
-          }
-         else {
-          checkResult = this.state.result;
+        else if (result.includes('**')) {
+            checkResult = result.replace('**', '*')
         }
-    
+        else if (result.includes('//')) {
+            checkResult = result.replace('//', '/')
+        }
+        else {
+            checkResult = result;
+        }
+
         try {
-          this.setState({
-            result: (eval(checkResult) || "") + ""
-          })
-        } catch(e) {
-          this.setState({
-            result: "error"
-          })
+            setResult((eval(checkResult) || "0"))
+        } catch (e) {
+            setResult("Error")
         }
-      };
-    
-      reset = () => {
-        this.setState({
-          result: ""
-        })
-      };
-    
-      backspace = () => {
-        this.setState({
-            result: this.state.result.slice(0, -1)
-        })
-      };
-  render(){
+    };
+
+    const reset = () => {
+        setResult("")
+    };
+
+    const backspace = () => {
+        setResult(result.slice(0, -1))
+    };
+
     return (
         <div className="center">
             <h1 >CALCULATOR</h1>
             <div className="main">
-                <Display result={this.state.result} />
-                <Btn onClick={this.onClick}/>
+                <Display result={result} />
+                <Btn onClick={onClick} />
             </div>
         </div>
     );
-  }
+
 }
 export default App;
