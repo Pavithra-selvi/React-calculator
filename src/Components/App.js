@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import './App.css';
 import Display from "./Display";
 import Btn from "./ButtonComponent";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import github from '../images/github.png';
 
 function App() {
 
@@ -60,12 +62,23 @@ function App() {
 
     return (
         <div className="center">
-            <h1 >CALCULATOR</h1>
+            <h1 >Calculator <span ><a href="https://github.com/Pavithra-selvi/React-calculator.git">
+                <img src={github} alt="github-image" style={{ width: "60px", marginTop: "-10px" }}></img>
+            </a></span>
+            </h1>
             <div className="main">
                 <Display result={result} />
                 <Btn onClick={onClick} />
             </div>
+            {/* <div className="fixed-top" >
+                   <a href="https://github.com/Pavithra-selvi/React-calculator.git" >                  
+                        <button type="button" class="btn btn-primary">
+                        Github
+                    </button>
+                    </a>
+            </div> */}
         </div>
+
     );
 
 }

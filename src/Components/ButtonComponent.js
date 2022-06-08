@@ -3,8 +3,6 @@ import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ButtonComponent.css';
 
-
-
 const Btn = (props) => {
 
 const handleFunction = (e) => {
@@ -48,8 +46,6 @@ const handleFunction = (e) => {
 
         </div>
 
-    );
-    
-  
+    ); 
 }
 export default Btn;
