@@ -90,7 +90,7 @@ function App() {
         Calculator
         <span>
           <a
-            href="https://github.com/Pavithra-selvi/React-calculator.git"
+            href="https://github.com/Pavithra-selvi/React-calculator"
             target="_blank"
           >
             <img
