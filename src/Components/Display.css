@@ -1,6 +1,6 @@
 .display{
-    width:255px;
-    height: auto;
+    width:257px;
+    height: 70px;
     padding: 20px;
     margin: 10px;
     margin-left: 20px;
@@ -9,4 +9,5 @@
     background-color: black;
     color:white;
     font-size: 30px;
+    text-align: right;
 }

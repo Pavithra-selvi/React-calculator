@@ -1,12 +1,11 @@
 import React from 'react';
 import './Display.css';
 const Display = (props) => {
-    return (
-        <div className='display' >
-            <p style={{ height: "40px" }}>{props.result}</p>
+    
+    return (    
+        <div >
+           <input type="text" value= {props.result} className='display' readOnly /> 
         </div>
-
     );
-
 }
 export default Display;

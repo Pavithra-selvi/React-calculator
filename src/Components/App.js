@@ -1,85 +1,111 @@
-import React, { useState } from "react";
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+// imported components
+
 import Display from "./Display";
 import Btn from "./ButtonComponent";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import github from '../images/github.png';
+
+//imported image
+
+import github from "../images/github.png";
 
 function App() {
+  const [result, setResult] = useState("");
+//   const [waiting,setWaiting] = useState(false);
 
-    const [result, setResult] = useState('');
+//   useEffect(() => {
+//     document.addEventListener("keydown", onClick);
+//   }, []);
 
-    const onClick = (button) => {
-        if (button === "=") {
-            calculate();
-        }
+  const onClick = (button) => {
+    if (button === "=") {
+      calculate();
+    } else if (button === "AC") {
+      reset();
+    } else if (button === "C") {
+      backspace();
+    } else if (button === "%") {
+      inputPercent();
+     } 
+    //   else if (button === ".") {
+    //     inputDot();
+    //  } 
+     else {
+      setResult(result + button);
+    }
+  };
 
-        else if (button === "AC") {
-            reset();
-        }
+  const inputPercent = () => {
+    const currentValue = parseFloat(result);
 
-        else if (button === "⌫") {
-            backspace();
-        }
+    if (currentValue === 0) return;
 
-        else {
-            setResult(result + button)
-        }
-    };
+    const fixedDigits = result.replace(/^-?\d*\.?/, "");
+    const newValue = parseFloat(result) / 100;
+    setResult(String(newValue.toFixed(fixedDigits.length + 10)));
+  };
 
-    const calculate = () => {
-        let checkResult = ''
-        if (result.includes('--')) {
-            checkResult = result.replace('--', '-')
-        }
-        else if (result.includes('++')) {
-            checkResult = result.replace('++', '+')
-        }
-        else if (result.includes('**')) {
-            checkResult = result.replace('**', '*')
-        }
-        else if (result.includes('//')) {
-            checkResult = result.replace('//', '/')
-        }
-        else {
-            checkResult = result;
-        }
+//   const inputDot = () =>{
+//     if (!(/\./).test(result)) {
+//       setResult({value: result + '.',  waiting: false}
+//        )}
+//   };
 
-        try {
-            setResult((eval(checkResult) || "0"))
-        } catch (e) {
-            setResult("Error")
-        }
-    };
+  const calculate = () => {
+    let checkResult = "";
+    if (result.includes("--")) {
+      checkResult = result.replace("--", "-");
+    } else if (result.includes("++")) {
+      checkResult = result.replace("++", "+");
+    } else if (result.includes("**")) {
+      checkResult = result.replace("**", "*");
+    } else if (result.includes("//")) {
+      checkResult = result.replace("//", "/");
+    } else {
+      checkResult = result;
+    }
 
-    const reset = () => {
-        setResult("")
-    };
+    try {
+      setResult(eval(checkResult) || "0");
+    } catch (e) {
+      setResult("Error");
+    }
+  };
 
-    const backspace = () => {
-        setResult(result.slice(0, -1))
-    };
+  const reset = () => {
+    setResult("");
+  };
 
-    return (
-        <div className="center">
-            <h1 >Calculator <span ><a href="https://github.com/Pavithra-selvi/React-calculator.git">
-                <img src={github} alt="github-image" style={{ width: "60px", marginTop: "-10px" }}></img>
-            </a></span>
-            </h1>
-            <div className="main">
-                <Display result={result} />
-                <Btn onClick={onClick} />
-            </div>
-            {/* <div className="fixed-top" >
-                   <a href="https://github.com/Pavithra-selvi/React-calculator.git" >                  
-                        <button type="button" class="btn btn-primary">
-                        Github
-                    </button>
-                    </a>
-            </div> */}
-        </div>
+  const backspace = () => {
+    setResult(result.slice(0, -1));
+  };
 
-    );
+  
 
+  return (
+    <div className="center">
+      <h1>
+        Calculator
+        <span>
+          <a
+            href="https://github.com/Pavithra-selvi/React-calculator.git"
+            target="_blank"
+          >
+            <img
+              src={github}
+              alt="github-image"
+              style={{ width: "60px", marginTop: "-10px" }}
+            />
+          </a>
+        </span>
+      </h1>
+      <div className="main">
+        <Display result={result} />
+        <Btn onClick={onClick} />
+      </div>
+    </div>
+  );
 }
 export default App;

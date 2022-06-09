@@ -1,0 +1,42 @@
+$mycolor:#e99841;
+$color:black;
+$bgcolor:#d6d6d6;
+
+.button{
+    width:50px;
+    height:50px;
+    padding:10px;
+    margin-top: 15px;
+    margin-left: 2px;
+    background-color: $mycolor;   
+    font-weight: lighter;
+}
+.button:hover{
+    background-color: $mycolor;
+}
+.button-div{
+    padding: 16px;
+    /* padding-left: 10px; */
+    margin: 20px;
+    margin-top: 0px;
+    /* margin-right: 10px; */
+    border:1px solid black;
+    background-color: #313336;  
+}
+.equals{
+    width:105px;
+}
+.numberbutton{
+    width:50px;
+    height:50px;
+    padding:10px;
+    margin-top: 15px;
+    margin-left: 2px;
+    background-color:$bgcolor;
+    color:$color;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.numberbutton:hover{
+    background-color:$bgcolor;
+    color:$color;
+}

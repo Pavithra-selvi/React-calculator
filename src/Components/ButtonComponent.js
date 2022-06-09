@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './ButtonComponent.css';
+import './ButtonComponent.scss';
 
 const Btn = (props) => {
 
@@ -11,10 +11,10 @@ const handleFunction = (e) => {
     return (
         <div className='button-div'>
             <div>
-                <Button name="AC" className='button' onClick={e => handleFunction(e)}>AC</Button>{' '}
-                <Button name="AC" className='button' onClick={e => handleFunction(e)}>%</Button>{' '}
+                <Button name="AC"className='button' onClick={e => handleFunction(e)}>AC</Button>{' '}
+                <Button name="%" className='button' onClick={e => handleFunction(e)}>%</Button>{' '}
                 <Button name="/" className='button' onClick={e => handleFunction(e)}>/</Button>{' '}
-                <Button name="⌫" className='button' onClick={e => handleFunction(e)}>⌫</Button>{' '}
+                <Button name="C" className='button' onClick={e => handleFunction(e)}>C</Button>{' '}
             </div>
 
             <div>
