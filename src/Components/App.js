@@ -1,88 +1,99 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Button } from "react-bootstrap";
+import "./ButtonComponent.scss";
 
-// imported components
-
+// imported component
 import Display from "./Display";
-import Btn from "./ButtonComponent";
 
 //imported image
-
 import github from "../images/github.png";
 
 function App() {
   const [result, setResult] = useState("");
-//   const [waiting,setWaiting] = useState(false);
+  const [previousNumber, setPreviousNumber] = useState("");
+  const [operator, setOperator] = useState("");
 
-//   useEffect(() => {
-//     document.addEventListener("keydown", onClick);
-//   }, []);
+  // Number
+  const addToInput = (val) => {
+    setResult(result + val);
+  };
 
-  const onClick = (button) => {
-    if (button === "=") {
-      calculate();
-    } else if (button === "AC") {
-      reset();
-    } else if (button === "C") {
-      backspace();
-    } else if (button === "%") {
-      inputPercent();
-     } 
-    //   else if (button === ".") {
-    //     inputDot();
-    //  } 
-     else {
-      setResult(result + button);
+  // Addition
+  const addition = () => {
+    setPreviousNumber(result);
+    setResult("");
+    setOperator("plus");
+  };
+
+  // Sub
+  const subtract = () => {
+    setPreviousNumber(result);
+    setResult("");
+    setOperator("subtract");
+  };
+
+  // Multiplication
+  const multiply = () => {
+    setPreviousNumber(result);
+    setResult("");
+    setOperator("multiply");
+  };
+
+  // Division
+  const divide = () => {
+    setPreviousNumber(result);
+    setResult("");
+    setOperator("divide");
+  };
+
+  // clear All
+  const clearInput = () => {
+    setResult("");
+  };
+  // backspace
+  const backspace = () => {
+    setResult(result.slice(0, -1));
+  };
+  // adding zero to input
+  const addZeroToInput = (val) => {
+    if (val !== "") {
+      setResult(result + val);
     }
   };
 
-  const inputPercent = () => {
+  // To display the dot once
+  const addDecimal = (val) => {
+    if (result && result.indexOf(".") === -1) {
+      setResult(result + val);
+    }
+  };
+
+  // Percentage
+  const percentage = () => {
     const currentValue = parseFloat(result);
 
     if (currentValue === 0) return;
-
-    const fixedDigits = result.replace(/^-?\d*\.?/, "");
+    const value =  result;
+    const fixedDigits = value && value.replace(/^-?\d*\.?/, "");
     const newValue = parseFloat(result) / 100;
     setResult(String(newValue.toFixed(fixedDigits.length + 10)));
   };
 
-//   const inputDot = () =>{
-//     if (!(/\./).test(result)) {
-//       setResult({value: result + '.',  waiting: false}
-//        )}
-//   };
-
-  const calculate = () => {
-    let checkResult = "";
-    if (result.includes("--")) {
-      checkResult = result.replace("--", "-");
-    } else if (result.includes("++")) {
-      checkResult = result.replace("++", "+");
-    } else if (result.includes("**")) {
-      checkResult = result.replace("**", "*");
-    } else if (result.includes("//")) {
-      checkResult = result.replace("//", "/");
-    } else {
-      checkResult = result;
-    }
-
-    try {
-      setResult(eval(checkResult) || "0");
-    } catch (e) {
-      setResult("Error");
-    }
+  const evaluation = () => {
+    const currentNumber = result;
+    console.log(previousNumber)
+    if (operator === "plus") {
+      setResult(parseFloat(previousNumber) + parseFloat(currentNumber));
+    } else if (operator === "subtract") {
+      setResult(parseFloat(previousNumber) - parseFloat(currentNumber));
+    } else if (operator === "multiply") {
+      setResult(parseFloat(previousNumber) * parseFloat(currentNumber));
+    } else if (operator === "divide") {
+      setResult(parseFloat(previousNumber) / parseFloat(currentNumber));
+    } else return;
   };
-
-  const reset = () => {
-    setResult("");
-  };
-
-  const backspace = () => {
-    setResult(result.slice(0, -1));
-  };
-
-  
 
   return (
     <div className="center">
@@ -103,7 +114,124 @@ function App() {
       </h1>
       <div className="main">
         <Display result={result} />
-        <Btn onClick={onClick} />
+
+        <div className="button-div">
+          <div>
+            <Button name="AC" className="button" onClick={clearInput}>
+              AC
+            </Button>{" "}
+            <Button name="%" className="button" onClick={percentage}>
+              %
+            </Button>{" "}
+            <Button name="/" className="button" onClick={divide}>
+              /
+            </Button>{" "}
+            <Button name="C" className="button" onClick={backspace}>
+              C
+            </Button>{" "}
+          </div>
+
+          <div>
+            <Button
+              name="7"
+              className="numberbutton"
+              onClick={(e) => addToInput(e.target.name)}
+            >
+              7
+            </Button>{" "}
+            <Button
+              name="8"
+              className="numberbutton"
+              onClick={(e) => addToInput(e.target.name)}
+            >
+              8
+            </Button>{" "}
+            <Button
+              name="9"
+              className="numberbutton"
+              onClick={(e) => addToInput(e.target.name)}
+            >
+              9
+            </Button>{" "}
+            <Button name="*" className="button" onClick={multiply}>
+              *
+            </Button>{" "}
+          </div>
+
+          <div>
+            <Button
+              name="4"
+              className="numberbutton"
+              onClick={(e) => addToInput(e.target.name)}
+            >
+              4
+            </Button>{" "}
+            <Button
+              name="5"
+              className="numberbutton"
+              onClick={(e) => addToInput(e.target.name)}
+            >
+              5
+            </Button>{" "}
+            <Button
+              name="6"
+              className="numberbutton"
+              onClick={(e) => addToInput(e.target.name)}
+            >
+              6
+            </Button>{" "}
+            <Button name="-" className="button" onClick={subtract}>
+              -
+            </Button>{" "}
+          </div>
+
+          <div>
+            <Button
+              name="1"
+              className="numberbutton"
+              onClick={(e) => addToInput(e.target.name)}
+            >
+              1
+            </Button>{" "}
+            <Button
+              name="2"
+              className="numberbutton"
+              onClick={(e) => addToInput(e.target.name)}
+            >
+              2
+            </Button>{" "}
+            <Button
+              name="3"
+              className="numberbutton"
+              onClick={(e) => addToInput(e.target.name)}
+            >
+              3
+            </Button>{" "}
+            <Button name="+" className="button" onClick={addition}>
+              +
+            </Button>{" "}
+          </div>
+
+          <div>
+            <Button
+              name="0"
+              className="numberbutton"
+              onClick={(e) => addZeroToInput(e.target.name)}
+            >
+              0
+            </Button>{" "}
+            <Button
+              name="."
+              className="numberbutton"
+              onClick={(e) => addDecimal(e.target.name)}
+            >
+              .
+            </Button>{" "}
+            <Button name="=" className="button equals" onClick={evaluation}>
+              =
+            </Button>{" "}
+          </div>
+        </div>
       </div>
     </div>
   );
