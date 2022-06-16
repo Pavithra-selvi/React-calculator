@@ -13,7 +13,14 @@ import github from "../images/github.png";
 function App() {
   const [result, setResult] = useState("");
   const [previousNumber, setPreviousNumber] = useState("");
+  //const [currentNumber,setCurrentNumber] = useState("");
   const [operator, setOperator] = useState("");
+  const [operatorValue, setOperatorValue] = useState("");
+  const [value, setVal] = useState("");
+  console.log("operatorValue===>", operatorValue);
+  console.log("previousNumber====>", previousNumber);
+  console.log("value=====>", value);
+  console.log("result===>", result);
 
   // Number
   const addToInput = (val) => {
@@ -25,6 +32,7 @@ function App() {
     setPreviousNumber(result);
     setResult("");
     setOperator("plus");
+    setOperatorValue( operatorValue == "=" ? "" : "+")  
   };
 
   // Sub
@@ -32,6 +40,7 @@ function App() {
     setPreviousNumber(result);
     setResult("");
     setOperator("subtract");
+    setOperatorValue( operatorValue == "=" ? "" : "-") 
   };
 
   // Multiplication
@@ -39,6 +48,7 @@ function App() {
     setPreviousNumber(result);
     setResult("");
     setOperator("multiply");
+    setOperatorValue( operatorValue == "=" ? "" : "*") 
   };
 
   // Division
@@ -46,11 +56,15 @@ function App() {
     setPreviousNumber(result);
     setResult("");
     setOperator("divide");
+    setOperatorValue( operatorValue == "=" ? "" : "/") 
   };
 
   // clear All
   const clearInput = () => {
     setResult("");
+    setOperatorValue("");
+    setVal("");
+    setPreviousNumber("");
   };
   // backspace
   const backspace = () => {
@@ -71,27 +85,61 @@ function App() {
   };
 
   // Percentage
-  const percentage = () => {
-    const currentValue = parseFloat(result);
+  // const percentage = () => {
+  //   const currentValue = parseFloat(result);
 
-    if (currentValue === 0) return;
-    const value =  result;
-    const fixedDigits = value && value.replace(/^-?\d*\.?/, "");
-    const newValue = parseFloat(result) / 100;
-    setResult(String(newValue.toFixed(fixedDigits.length + 10)));
-  };
+  //   if (currentValue === 0) return;
+  //   const value =  result;
+  //   //const fixedDigits = value && value.replace(/^-?\d*\.?/, "");
+  //   const newValue = parseFloat(result) / 100;
+  //   //setResult(String(newValue.toFixed(fixedDigits.length + 10)));
+  //   setResult(newValue);
+  // };
+
+  const percentage = () =>{
+    // const value= result;
+    // const currentNumber = result;
+    // const val = (parseFloat(previousNumber) / parseFloat(currentNumber));
+    if(parseInt(result)){
+      //const newValue = parseFloat(result) * 100;
+      setResult(result/100);
+      console.log("pre-->", parseInt(result), parseFloat(result))
+    }else if (parseFloat(result)){
+      setResult(result * 100);
+      // const newValue = parseFloat(result) / 100;
+      // setResult(newValue);
+    }
+  }
+
+  //percentage
+  // const percentage = (result) =>{
+  //   var value = result;
+  //   //var newValue = (value/100);
+  //   var percent = (value*100);
+  //   setResult(percent);
+  //   console.log("percent-->",percent);
+
+  // }
 
   const evaluation = () => {
     const currentNumber = result;
     console.log(previousNumber)
     if (operator === "plus") {
       setResult(parseFloat(previousNumber) + parseFloat(currentNumber));
+      setVal(result)
+      setOperatorValue("+")
     } else if (operator === "subtract") {
       setResult(parseFloat(previousNumber) - parseFloat(currentNumber));
+      setVal(result)
+      setOperatorValue("-")
     } else if (operator === "multiply") {
       setResult(parseFloat(previousNumber) * parseFloat(currentNumber));
+      setVal(result)
+      setOperatorValue("*")
     } else if (operator === "divide") {
       setResult(parseFloat(previousNumber) / parseFloat(currentNumber));
+      setVal(result)
+      setOperatorValue("/")
     } else return;
   };
 
@@ -113,7 +161,14 @@ function App() {
         </span>
       </h1>
       <div className="main">
-        <Display result={result} />
+          <div
+           style={{color:"white",fontSize:"20px",
+           width:"260px",height:"20px",
+           display:"inline-block",marginLeft:"20px",
+           textAlign:"right"}}>
+            {value ? "" : previousNumber + operatorValue}{result}
+            </div>
+        <Display result={result}/>
 
         <div className="button-div">
           <div>
