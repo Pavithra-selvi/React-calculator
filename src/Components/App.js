@@ -19,6 +19,7 @@ function App() {
   const [operator, setOperator] = useState("");
   const [operatorValue, setOperatorValue] = useState("");
   const [value, setValue] = useState("");
+  const [ , setInput] = useState("");
   console.log("operatorValue===>", operatorValue);
   console.log("previousNumber====>", previousNumber);
   console.log("value=====>", value);
@@ -27,6 +28,7 @@ function App() {
   // Number
   const addToInput = (val) => {
     setResult(result + val);
+    setInput(val)
   };
 
   // Addition
@@ -86,6 +88,8 @@ function App() {
   const addDecimal = (val) => {
     if (result && result.indexOf(".") === -1) {
       setResult(result + val);
+    } else {
+      setResult(val); // this condition is to show . when it clicked directly
     }
   };
 
