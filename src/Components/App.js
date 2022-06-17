@@ -9,6 +9,7 @@ import Display from "./Display";
 
 //imported image
 import github from "../images/github.png";
+import { Value } from "sass";
 
 function App() {
   const [result, setResult] = useState("");
@@ -16,7 +17,7 @@ function App() {
   //const [currentNumber,setCurrentNumber] = useState("");
   const [operator, setOperator] = useState("");
   const [operatorValue, setOperatorValue] = useState("");
-  const [value, setVal] = useState("");
+  const [value, setValue] = useState("");
   console.log("operatorValue===>", operatorValue);
   console.log("previousNumber====>", previousNumber);
   console.log("value=====>", value);
@@ -63,12 +64,19 @@ function App() {
   const clearInput = () => {
     setResult("");
     setOperatorValue("");
-    setVal("");
+    setValue("");
     setPreviousNumber("");
   };
   // backspace
   const backspace = () => {
     setResult(result.slice(0, -1));
+    // setOperatorValue(operatorValue.slice(0,-1));
+
+    // setValue(value.slice(0, -1));
+    // console.log(result);
+    // console.log(operatorValue);
+    // console.log(previousNumber);
+
   };
   // adding zero to input
   const addZeroToInput = (val) => {
@@ -103,42 +111,57 @@ function App() {
     if(parseInt(result)){
       //const newValue = parseFloat(result) * 100;
       setResult(result/100);
-      console.log("pre-->", parseInt(result), parseFloat(result))
+      //console.log("pre-->", parseInt(result), parseFloat(result))
     }else if (parseFloat(result)){
-      setResult(result * 100);
+      setResult(result / 100);
+      
       // const newValue = parseFloat(result) / 100;
       // setResult(newValue);
     }
   }
 
-  //percentage
-  // const percentage = (result) =>{
-  //   var value = result;
-  //   //var newValue = (value/100);
-  //   var percent = (value*100);
-  //   setResult(percent);
-  //   console.log("percent-->",percent);
-
-  // }
 
   const evaluation = () => {
     const currentNumber = result;
     console.log(previousNumber)
     if (operator === "plus") {
       setResult(parseFloat(previousNumber) + parseFloat(currentNumber));
-      setVal(result)
+      setValue(result)
       setOperatorValue("+")
     } else if (operator === "subtract") {
       setResult(parseFloat(previousNumber) - parseFloat(currentNumber));
-      setVal(result)
+      setValue(result)
       setOperatorValue("-")
     } else if (operator === "multiply") {
       setResult(parseFloat(previousNumber) * parseFloat(currentNumber));
-      setVal(result)
+      setValue(result)
       setOperatorValue("*")
     } else if (operator === "divide") {
       setResult(parseFloat(previousNumber) / parseFloat(currentNumber));
-      setVal(result)
+     // let val=String(parseFloat(previousNumber) / parseFloat(currentNumber));
+    //   let cal;
+    //   let output;
+    //   if (val % 1 === 0) {
+    //     cal = val;
+    // }
+    // else {
+    //     output = val;
+    //     const numStr = String(output)
+    //     console.log("numStr : " + numStr);
+
+    //     if (numStr.includes('.')) {
+    //        let data = numStr.split('.')[1].length;
+    //         console.log("decimal digits -> data : " + data);
+             
+    //         if(data <= 9){
+    //           cal = numStr
+    //         }else{
+    //           cal = Number(val).toFixed(10)
+    //         }
+    //     }}
+      // setVal(cal);
+      // setResult(cal);
+      setValue(result)
       setOperatorValue("/")
     } else return;
   };

@@ -6,7 +6,7 @@ $bgcolor:#d6d6d6;
     width:50px;
     height:50px;
     padding:10px;
-    margin-top: 15px;
+    margin-top: 15px;//10px
     margin-left: 2px;
     background-color: $mycolor;   
     font-weight: lighter;
@@ -15,9 +15,9 @@ $bgcolor:#d6d6d6;
     background-color: $mycolor;
 }
 .button-div{
-    padding: 16px;
+    padding: 5px 15px;//5 px 15px
     /* padding-left: 10px; */
-    margin: 20px;
+    margin: 20px;//
     margin-top: 0px;
     /* margin-right: 10px; */
     border:1px solid black;
