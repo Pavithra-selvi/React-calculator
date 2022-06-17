@@ -3,9 +3,10 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
 import "./ButtonComponent.scss";
+import "./Display.css";
 
 // imported component
-import Display from "./Display";
+//import Display from "./Display";
 
 //imported image
 import github from "../images/github.png";
@@ -57,7 +58,7 @@ function App() {
     setPreviousNumber(result);
     setResult("");
     setOperator("divide");
-    setOperatorValue( operatorValue == "=" ? "" : "/") 
+    setOperatorValue( operatorValue == "=" ? "" : "/") ;    
   };
 
   // clear All
@@ -67,17 +68,13 @@ function App() {
     setValue("");
     setPreviousNumber("");
   };
+
   // backspace
   const backspace = () => {
-    setResult(result.slice(0, -1));
-    // setOperatorValue(operatorValue.slice(0,-1));
-
-    // setValue(value.slice(0, -1));
-    // console.log(result);
-    // console.log(operatorValue);
-    // console.log(previousNumber);
-
+      const value = result.toString().slice(0, -1);
+      setResult(value);
   };
+
   // adding zero to input
   const addZeroToInput = (val) => {
     if (val !== "") {
@@ -104,19 +101,12 @@ function App() {
   //   setResult(newValue);
   // };
 
+//percentage
   const percentage = () =>{
-    // const value= result;
-    // const currentNumber = result;
-    // const val = (parseFloat(previousNumber) / parseFloat(currentNumber));
     if(parseInt(result)){
-      //const newValue = parseFloat(result) * 100;
       setResult(result/100);
-      //console.log("pre-->", parseInt(result), parseFloat(result))
     }else if (parseFloat(result)){
       setResult(result / 100);
-      
-      // const newValue = parseFloat(result) / 100;
-      // setResult(newValue);
     }
   }
 
@@ -138,33 +128,15 @@ function App() {
       setOperatorValue("*")
     } else if (operator === "divide") {
       setResult(parseFloat(previousNumber) / parseFloat(currentNumber));
-     // let val=String(parseFloat(previousNumber) / parseFloat(currentNumber));
-    //   let cal;
-    //   let output;
-    //   if (val % 1 === 0) {
-    //     cal = val;
-    // }
-    // else {
-    //     output = val;
-    //     const numStr = String(output)
-    //     console.log("numStr : " + numStr);
-
-    //     if (numStr.includes('.')) {
-    //        let data = numStr.split('.')[1].length;
-    //         console.log("decimal digits -> data : " + data);
-             
-    //         if(data <= 9){
-    //           cal = numStr
-    //         }else{
-    //           cal = Number(val).toFixed(10)
-    //         }
-    //     }}
-      // setVal(cal);
-      // setResult(cal);
       setValue(result)
       setOperatorValue("/")
     } else return;
   };
+ 
+  //to limit the input value
+  const total = result.toString().substring(0, 14)
+  let joinValue = previousNumber + operatorValue
+  const inputTotal = joinValue.toString().substring(0, 14)
 
   return (
     <div className="center">
@@ -184,32 +156,29 @@ function App() {
         </span>
       </h1>
       <div className="main">
-          <div
-           style={{color:"white",fontSize:"20px",
-           width:"260px",height:"20px",
-           display:"inline-block",marginLeft:"20px",
-           textAlign:"right"}}>
-            {value ? "" : previousNumber + operatorValue}{result}
+        <div>
+          <div className="display">
+            {value ? "" : inputTotal}{total}
             </div>
-        <Display result={result}/>
-
+        {/* <Display result={result}/> */}
+        </div>
         <div className="button-div">
-          <div>
-            <Button name="AC" className="button" onClick={clearInput}>
+          <div className="text-center">
+            <Button name="AC" className="symbol" onClick={clearInput}>
               AC
             </Button>{" "}
-            <Button name="%" className="button" onClick={percentage}>
+            <Button name="%" className= "symbol" onClick={percentage}>
               %
             </Button>{" "}
-            <Button name="/" className="button" onClick={divide}>
+            <Button name="/" className="symbol" onClick={divide}>
               /
             </Button>{" "}
-            <Button name="C" className="button" onClick={backspace}>
+            <Button name="C" className="symbol" onClick={backspace}>
               C
             </Button>{" "}
           </div>
 
-          <div>
+          <div className="text-center">
             <Button
               name="7"
               className="numberbutton"
@@ -231,12 +200,12 @@ function App() {
             >
               9
             </Button>{" "}
-            <Button name="*" className="button" onClick={multiply}>
+            <Button name="*" className="symbol" onClick={multiply}>
               *
             </Button>{" "}
           </div>
 
-          <div>
+          <div className="text-center">
             <Button
               name="4"
               className="numberbutton"
@@ -258,12 +227,12 @@ function App() {
             >
               6
             </Button>{" "}
-            <Button name="-" className="button" onClick={subtract}>
+            <Button name="-" className="symbol" onClick={subtract}>
               -
             </Button>{" "}
           </div>
 
-          <div>
+          <div className="text-center">
             <Button
               name="1"
               className="numberbutton"
@@ -285,12 +254,12 @@ function App() {
             >
               3
             </Button>{" "}
-            <Button name="+" className="button" onClick={addition}>
+            <Button name="+" className="symbol" onClick={addition}>
               +
             </Button>{" "}
           </div>
 
-          <div>
+          <div className="text-center">
             <Button
               name="0"
               className="numberbutton"
