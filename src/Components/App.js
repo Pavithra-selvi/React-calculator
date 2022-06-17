@@ -10,7 +10,7 @@ import "./Display.css";
 
 //imported image
 import github from "../images/github.png";
-import { Value } from "sass";
+//import { Value } from "sass";
 
 function App() {
   const [result, setResult] = useState("");
@@ -130,7 +130,12 @@ function App() {
       setResult(parseFloat(previousNumber) / parseFloat(currentNumber));
       setValue(result)
       setOperatorValue("/")
-    } else return;
+    } else if (operator === "percentage"){
+      setResult(result/100)
+      setValue(result)
+      setOperatorValue("%") //this condition is to avoid Nan when give equalto after percentage opeartion
+    }
+    else return;
   };
  
   //to limit the input value
